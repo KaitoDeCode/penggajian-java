@@ -1,0 +1,105 @@
+package com.Adi_Kurniawan.tugas_sekolah;
+//import Joptionpane
+import javax.swing.JOptionPane;
+
+public class Penggajian {
+    public static void main(String[] args) {
+        //Variable
+        int gajiPokok = 1000000;
+        int jumlahKaryawan = 4;
+        String[] namaKaryawan = new String[jumlahKaryawan];
+        double[] tunjanganJabatan = new double[jumlahKaryawan];
+        double[] tunjanganPendidikan = new double[jumlahKaryawan];
+        double[] honorLembur = new double[jumlahKaryawan];
+        double[] totalGajiKaryawan = new double[jumlahKaryawan];
+        double[] pajak = new double[jumlahKaryawan];
+        double[] gajiBersih = new double[jumlahKaryawan];
+        int[] jamKerjaKaryawan = new int[jumlahKaryawan];
+        double totalAnggaran = 0;
+
+        // untuk input
+        int[] pendidikanKaryawan = new int[jumlahKaryawan];
+        int[] jabatanKaryawan = new int[jumlahKaryawan];
+
+        //Tampilan Awal
+        JOptionPane.showMessageDialog(null,"Sistem Penggajian PT. ABADI JAYA\n"+
+                "Nama : Adi Kurniawan\n" +
+                "Kelas : X RPL 1\n" +
+                "No.Absen = 01"
+        );
+
+        //Perulangan
+        for(int i = 0; i < jumlahKaryawan; i++){
+
+            // input
+            namaKaryawan[i] =  JOptionPane.showInputDialog(null,"Nama Karyawan : ");
+            jabatanKaryawan[i] = Integer.parseInt(JOptionPane.showInputDialog(null,"Kode Jabatan "+namaKaryawan[i]+"[1,2,3]"));
+            pendidikanKaryawan[i] = Integer.parseInt(JOptionPane.showInputDialog(null,"Kode Pendidikan "+namaKaryawan[i]+"[1,2,3]"));
+            jamKerjaKaryawan[i] = Integer.parseInt(JOptionPane.showInputDialog(null,"Jam Kerja "+namaKaryawan[i]));
+
+            // kalkulasi tunjangan jabatan
+            if(jabatanKaryawan[i] == 1){
+                tunjanganJabatan[i] = 0.2 * gajiPokok;
+            }else if (jabatanKaryawan[i] == 2){
+                tunjanganJabatan[i] = 0.15 * gajiPokok;
+            }else if (jabatanKaryawan[i] == 3){
+                tunjanganJabatan[i] = 0.01 * gajiPokok;
+            }else{
+                tunjanganJabatan[i] = 0;
+            }
+
+
+            // kalkulasi tunjangan pendidikan
+            if(pendidikanKaryawan[i] == 1){
+                tunjanganPendidikan[i] = 0.15 * gajiPokok;
+            } else if (pendidikanKaryawan[i] == 2){
+                tunjanganPendidikan[i] = 0.1 * gajiPokok;
+            } else if (pendidikanKaryawan[i] == 3) {
+                tunjanganPendidikan[i] = 0.05 * gajiPokok;
+            }else {
+                tunjanganPendidikan[i] = 0;
+            }
+
+
+            // kalkulasi honor lembur
+            honorLembur[i] = (jamKerjaKaryawan[i] - 240) * 15000;
+
+            // total gaji
+            totalGajiKaryawan[i] = gajiPokok + tunjanganJabatan[i] + tunjanganPendidikan[i] + honorLembur[i];
+
+            // kalkulasi Potongan Pajak
+            if (jabatanKaryawan[i] == 1){
+                pajak[i] = 0.05 * totalGajiKaryawan[i];
+            } else if (jabatanKaryawan[i] == 2){
+                pajak[i] = 0.03 * totalGajiKaryawan[i];
+            } else if (jabatanKaryawan[i] == 3) {
+                pajak[i] = 0.01 * totalGajiKaryawan[1];
+            }else{
+                pajak[1] = 0;
+            }
+
+            // kalkulasi gaji bersih
+            gajiBersih[i] = totalGajiKaryawan[i] - pajak[i];
+
+            // Resum Gaji
+            JOptionPane.showMessageDialog(null,"SISTEM PENGGAJIAN PT. ABADI JAYA\n" +
+                    "================================\n" +
+                    "Nama Karyawan : " + namaKaryawan[i] + "\n" +
+                    "Gaji Pokok : " + gajiPokok + "\n" +
+                    "Tunjangan Jabatan : " + tunjanganJabatan[i]+ "\n" +
+                    "Tunjangan Pendidikan : " + tunjanganPendidikan[i]+ "\n" +
+                    "Total Jam Kerja : " + jamKerjaKaryawan[i]+ "\n" +
+                    "Honor Lembur : " + honorLembur[i]+ "\n" +
+                    "Potongan Pajak : " + pajak[i]+ "\n" +
+                    "Gaji Bersih : " + gajiBersih[i]+ "\n"
+            );
+
+            // kalkulasi total Anggaran
+            totalAnggaran +=gajiBersih[i];
+        }
+
+        // Menampilkan Total Anggaran
+        JOptionPane.showMessageDialog(null,"Total anggaran gaji :"+totalAnggaran);
+
+    }
+}
